@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose=require('mongoose');
 const path = require('path');   
 
+mongoose.connect()
+
+
 const app=express();
 
 app.set('views',path.join(__dirname,'views'));
