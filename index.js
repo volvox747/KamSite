@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 //@ Connecting to MongoDB 
-mongoose.connect("mongodb://localhost:27017/myapp").then(() => {
+mongoose.connect("mongodb://localhost:27017/kam-site").then(() => {
   console.log("Connected to MongoDB");
 }).catch(e=>{new Error(e).message})
 
