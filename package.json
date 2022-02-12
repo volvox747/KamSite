@@ -11,5 +11,9 @@
     "url": "volvox747"
   },
   "author": "Benson Thomas",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  }
 }
