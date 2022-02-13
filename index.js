@@ -13,6 +13,9 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+//@ Importing route and using as a middleware 
+const post = require("./routes/makeCampground");
+app.use('/',post);
 
 
 //@ Connecting the server 
