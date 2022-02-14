@@ -8,8 +8,9 @@ const Campground = require('../model/campground');
 const route=express.Router();
 
 
-route.get('/',async (req,res)=>{
-    res.render("home");
+route.get('/find',async (req,res)=>{
+    const campgrounds=await Campground.find({});
+    res.render("home",{campgrounds});
 })
 
 
