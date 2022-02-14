@@ -11,7 +11,11 @@
     <h3><%= showCampGround.location %> </h3>
 
     <a href="/find">All CampGrounds</a>
-    <span>    </span>
+    <br>
+    <form action="/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post">
+        <button>Delete</button>
+    </form>
+    <br>
     <a href="/editcampground/<%=showCampGround._id%>/edit">Edit CampGround</a>
 </body>
 </html>
