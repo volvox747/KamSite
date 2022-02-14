@@ -15,10 +15,9 @@ route.get('/newcampground',(req,res)=>{
 })
 
 route.post('/newcampground/create',async (req,res)=>{
-    console.log(req.body);
     const newCampGround=new Campground({title:req.body.title,location:req.body.location});
     await newCampGround.save();
-    console.log("Added a new Campground");
+    res.redirect('/find')
 })
 
 
@@ -28,7 +27,26 @@ route.get('/find',async (req,res)=>{
     res.render("home",{campgrounds});
 })
 
+route.get('/show/:id',async (req,res)=>{
+    const {id}=req.params;
+    const showCampGround=await Campground.findById(id);
+    res.render("showCampground",{showCampGround});
+})
 
+
+//@ UPDATE 
+
+route.get('/editcampground/:id/edit',async (req,res)=>{
+    const {id}=req.params;
+    const editCampGround=await Campground.findById(id);
+    res.render('editCampground',{editCampGround})
+})
+
+route.put('/editcampground/:id',async (req,res)=>{
+    const {id}=req.params;
+    await Campground.findByIdAndUpdate(id,{title:req.body.title,location:req.body.location});
+    res.redirect(`/show/${id}`);
+})
 
 
 
