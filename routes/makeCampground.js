@@ -49,7 +49,13 @@ route.put('/editcampground/:id',async (req,res)=>{
 })
 
 
+//@ DELETE
 
+route.delete('/editcampground/:id',async (req,res)=>{
+    const {id}=req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect('/find');
+})
 
 
 
