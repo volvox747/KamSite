@@ -4,7 +4,8 @@ const path = require("path");
 
 const app = express();
 
-
+//@ To accept data from "forms" we use this middleware,if not the req.body will 'undefined' 
+app.use(express.urlencoded({extended:true}))
 
 
 //@ Connecting to MongoDB 

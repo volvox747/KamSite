@@ -8,6 +8,21 @@ const Campground = require('../model/campground');
 const route=express.Router();
 
 
+//@ CREATE
+
+route.get('/newcampground',(req,res)=>{
+    res.render('newCampground');
+})
+
+route.post('/newcampground/create',async (req,res)=>{
+    console.log(req.body);
+    const newCampGround=new Campground({title:req.body.title,location:req.body.location});
+    await newCampGround.save();
+    console.log("Added a new Campground");
+})
+
+
+//@ READ 
 route.get('/find',async (req,res)=>{
     const campgrounds=await Campground.find({});
     res.render("home",{campgrounds});
