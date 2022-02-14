@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+</head>
+<body>
+    <h1>All CampGrounds</h1>
+<ul>
+    <% for( let i = 0; i < 50; i++ ) { %>
+        <li><a href="/show/<%= campgrounds[i]._id %> "><%= campgrounds[i].title %></a></li>
+    <% } %>
+</ul>
+
+<a href="/newcampground">New CampGround</a>
+        
+</body>
+</html>
