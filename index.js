@@ -3,6 +3,10 @@ const express = require("express");
 const app = express();
 
 
+//@ Importing ejs-mate and using it has a template engine
+const ejsMate=require('ejs-mate');
+app.engine('ejs',ejsMate);  
+
 
 //@ To accept data from "forms" we use this middleware,if not the req.body will 'undefined' 
 app.use(express.urlencoded({extended:true}))
