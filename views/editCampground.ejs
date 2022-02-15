@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit CampGround</title>
-</head>
-<body>
+<% layout('layout/boilerplate') %>
+ 
     <h1>Edit CampGround</h1>
 
     <form action="/editcampground/<%= editCampGround._id %>?_method=PUT" method="post">
@@ -18,5 +11,3 @@
         <br>
         <button type="submit">Submit</button>
     </form>
-</body>
-</html>

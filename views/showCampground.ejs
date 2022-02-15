@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show CampGround</title>
-</head>
-<body>
+<% layout('layout/boilerplate') %> 
     <h1><%= showCampGround.title %> </h1>
     <h3><%= showCampGround.location %> </h3>
 
@@ -17,5 +9,3 @@
     </form>
     <br>
     <a href="/editcampground/<%=showCampGround._id%>/edit">Edit CampGround</a>
-</body>
-</html>
