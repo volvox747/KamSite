@@ -42,6 +42,7 @@ const dataBase = async () => {
                 places[Math.floor(Math.random() * places.length)],
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             price, //& which means price:price(i.e, pairs have same name)
+            image:"https://images.unsplash.com/photo-1484712548363-bad7b2ff3878?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHw0ODQzNTF8fHx8fHx8MTY0NDk1NjExNA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
             description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta laudantium temporibus dolorem rem repudiandae itaque fugiat consectetur qui. Dicta praesentium sapiente mollitia expedita quo? Libero pariatur error eaque eos amet!"
         });
 
