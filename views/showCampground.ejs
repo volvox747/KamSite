@@ -1,8 +1,8 @@
 <% layout('layout/boilerplate') %> 
     <h1><%= showCampGround.title %> </h1>
+    <img src="<%= showCampGround.image %> " alt="">
     <h3><%= showCampGround.location %> </h3>
-
-    <a href="/find">All CampGrounds</a>
+    <p><%= showCampGround.description %> </p>
     <br>
     <form action="/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post">
         <button>Delete</button>
