@@ -1,12 +1,30 @@
 <% layout('layout/boilerplate') %>
-    <h1>New CampGround</h1>
+<h1>New CampGround</h1>
 
-    <form action="/newcampground/create" method="post">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-        <br>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+<div class="row">
+    <div class="col-6">
+        <form action="/newcampground/create" method="post">
+            
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" id="title" class="form-control">
+            
+            <label for="imageurl" class="form-label">Image URL</label>
+            <input type="url" name="image" id="imageurl" class="form-control">
+
+            <label for="location" class="form-label">Location</label>
+            <input type="text" name="location" id="location" class="form-control">
+            
+            <label for="price" class="form-label">CampGround Price</label>
+            <div class="input-group">
+                <span class="input-group-text" id="price-label" >$</span>
+                <input type="text" class="form-control" id="price" placeholder="0.00">
+            </div>
+
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-control" cols="30" rows="5"></textarea>
+
+
+            <button type="submit">Add CampGround</button>
+        </form>
+    </div>
+</div>
