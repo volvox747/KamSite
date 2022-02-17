@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show CampGround</title>
-</head>
-<body>
-    <h1><%= showCampGround.title %> </h1>
-    <h3><%= showCampGround.location %> </h3>
+<% layout('layout/boilerplate') %>
 
-    <a href="/find">All CampGrounds</a>
-    <br>
-    <form action="/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post">
-        <button>Delete</button>
-    </form>
-    <br>
-    <a href="/editcampground/<%=showCampGround._id%>/edit">Edit CampGround</a>
-</body>
-</html>
+<div class="row">
+    <div class="col-6 offset-5">
+        <div class="card" style="width: 20rem;">
+            <img src="<%= showCampGround.image %>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= showCampGround.title %></h5>
+                <p class="card-text"><%= showCampGround.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><%= showCampGround.location %></li>
+                <li class="list-group-item">$ <%= showCampGround.price %>/night</li>
+            </ul>
+            <div class="card-body">
+                <a href="/editcampground/<%=showCampGround._id%>/edit" class="card-link btn btn-info">Edit</a>
+                <form action="/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post" class="d-inline">
+                    <button class="btn btn-danger ms-2">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

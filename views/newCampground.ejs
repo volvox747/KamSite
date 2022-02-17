@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New CampGround</title>
-</head>
-<body>
-    <h1>New CampGround</h1>
+<% layout('layout/boilerplate') %>
+<h1 class="display-5 text-center mb-5">New CampGround</h1>
 
-    <form action="/newcampground/create" method="post">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-        <br>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+<div class="row">
+    <div class="col-6 offset-3">
+        <form action="/newcampground/create" method="post">
+            
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" placeholder="Title" id="title" class="form-control mb-3">
+            
+            <label for="imageurl" class="form-label">Image URL</label>
+            <input type="url" name="image" placeholder="Image URL" id="imageurl" class="form-control mb-3">
+
+            <label for="location" class="form-label">Location</label>
+            <input type="text" name="location" placeholder="Location" id="location" class="form-control mb-3">
+            
+            <label for="price" class="form-label">CampGround Price</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="price-label" >$</span>
+                <input type="text" class="form-control" id="price" placeholder="0.00">
+            </div>
+
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" placeholder="Description" id="description" class="form-control mb-3" cols="30" rows="3"></textarea>
+
+
+            <button type="submit" class="btn btn-success mt-3">Add CampGround</button>
+        </form>
+    </div>
+</div>

@@ -23,8 +23,10 @@ mongoose
     });
 
 
-    //@ Importing Model
+//@ Importing Model
 const Campground = require("../model/campground");
+
+
 
 //@ Delete the existing contents from Database
 //@ Insert new data into the database from dummy data   
@@ -33,12 +35,17 @@ const dataBase = async () => {
 
     for (let i = 0; i <= 300; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 1000);
         const campground = new Campground({
           title:
             descriptors[Math.floor(Math.random() * descriptors.length)] +
             " " +
             places[Math.floor(Math.random() * places.length)],
-          location: cities[random1000].city,
+          location: `${cities[random1000].city}, ${cities[random1000].state}`,
+          price, //& which means price:price(i.e, pairs have same name)
+          image: "https://source.unsplash.com/random/700x700/?in-the-woods",
+          description:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta laudantium temporibus dolorem rem repudiandae itaque fugiat consectetur qui. Dicta praesentium sapiente mollitia expedita quo? Libero pariatur error eaque eos amet!",
         });
 
         await campground.save();
@@ -46,7 +53,4 @@ const dataBase = async () => {
 }
 
 
-dataBase().then(()=>mongoose.connection.close());
-
-
-
+dataBase().then(() => mongoose.connection.close());

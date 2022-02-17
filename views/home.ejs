@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
-    <h1>All CampGrounds</h1>
+<% layout('layout/boilerplate') %>
+<h1 class="display-5 mb-5">All CampGrounds</h1>
 <ul>
     <% for( let i = 0; i < 50; i++ ) { %>
-        <li><a href="/show/<%= campgrounds[i]._id %> "><%= campgrounds[i].title %></a></li>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="<%= campgrounds[i].image %>" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= campgrounds[i].title %></h5>
+                    <p class="card-text"><%= campgrounds[i].description %></p>
+                    <p class="card-text"><small class="text-muted"><%= campgrounds[i].location %></small></p>
+                    <a href="/show/<%= campgrounds[i]._id %> " class="btn btn-primary">View <%= campgrounds[i].title %></a>
+                </div>
+            </div>
+        </div>
+    </div>
     <% } %>
 </ul>
-
-<a href="/newcampground">New CampGround</a>
-        
-</body>
-</html>
