@@ -15,7 +15,6 @@ route.get('/newcampground',(req,res)=>{
 })
 
 route.post('/newcampground/create',async (req,res)=>{
-    console.log(req.body);
     const newCampGround = new Campground({
       title: req.body.title,
       location: req.body.location,
@@ -51,7 +50,6 @@ route.get('/editcampground/:id/edit',async (req,res)=>{
 
 route.put('/editcampground/:id',async (req,res)=>{
     const {id}=req.params;
-    console.log(req.body);
     await Campground.findByIdAndUpdate(
       id,
       {
