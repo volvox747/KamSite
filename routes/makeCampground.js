@@ -15,9 +15,10 @@ route.get('/newcampground',(req,res)=>{
 })
 
 route.post('/newcampground/create',async (req,res)=>{
-    const newCampGround=new Campground({title:req.body.title,location:req.body.location});
+    console.log(req.body);
+    const newCampGround=new Campground({title:req.body.title,location:req.body.location,price:req.body.price,image:req.body.image,description:req.body.description});
     await newCampGround.save();
-    res.redirect('/find')
+    res.redirect(`/show/${newCampGround._id}`);
 })
 
 
