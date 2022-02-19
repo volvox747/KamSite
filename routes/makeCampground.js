@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const express = require('express');
 
+//@ Importing common Async-Error handling wrapper function to handle async errors  
+const catchAsync=require('../utils/catchAsyncError');
 
 
 //@ Importing campgroundSchema model
@@ -10,13 +12,11 @@ const route=express.Router();
 
 //@ CREATE
 
-route.get('/newcampground',(req,res)=>{
+route.get('/newcampground',catchAsync((req,res)=>{
     res.render('newCampground');
-})
+}))
 
-route.post('/newcampground/create',async (req,res,next)=>{
-    try
-    {
+route.post('/newcampground/create',catchAsync(async (req,res,next)=>{
         const newCampGround = new Campground({
             title: req.body.title,
             location: req.body.location,
@@ -26,36 +26,32 @@ route.post('/newcampground/create',async (req,res,next)=>{
         });
         await newCampGround.save();
         res.redirect(`/show/${newCampGround._id}`);
-    }
-    catch(e)
-    {
-        next(e);
-    }
-})
+    
+}))
 
 
 //@ READ 
-route.get('/find',async (req,res)=>{
+route.get('/find',catchAsync(async (req,res)=>{
     const campgrounds=await Campground.find({});
     res.render("home",{campgrounds});
-})
+}))
 
-route.get('/show/:id',async (req,res)=>{
+route.get('/show/:id',catchAsync(async (req,res)=>{
     const {id}=req.params;
     const showCampGround=await Campground.findById(id);
     res.render("showCampground",{showCampGround});
-})
+}))
 
 
 //@ UPDATE 
 
-route.get('/editcampground/:id/edit',async (req,res)=>{
+route.get('/editcampground/:id/edit',catchAsync(async (req,res)=>{
     const {id}=req.params;
     const editCampGround=await Campground.findById(id);
     res.render('editCampground',{editCampGround})
-})
+}))
 
-route.put('/editcampground/:id',async (req,res)=>{
+route.put('/editcampground/:id',catchAsync(async (req,res)=>{
     const {id}=req.params;
     await Campground.findByIdAndUpdate(
       id,
@@ -68,20 +64,23 @@ route.put('/editcampground/:id',async (req,res)=>{
       }
     );
     res.redirect(`/show/${id}`);
-})
+}))
 
 
 //@ DELETE
 
-route.delete('/editcampground/:id',async (req,res)=>{
+route.delete('/editcampground/:id',catchAsync(async (req,res)=>{
     const {id}=req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/find');
-})
+}))
 
 
+//? Error handling middleware 
 route.use((err,req,res,next)=>{
-    res.send("Something went wrong");
+    //& Destructuring and setting default values for destructured elements 
+    const {statusCode=500,message="Something went wrong!!!!"}=err;
+    res.status(statusCode).send(message)
 })
 
 
