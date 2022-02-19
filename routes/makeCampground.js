@@ -16,7 +16,7 @@ route.get('/newcampground',catchAsync((req,res)=>{
     res.render('newCampground');
 }))
 
-route.post('/newcampground/create',catchAsync(async (req,res,next)=>{
+route.post('/newcampground/create',catchAsync(async (req,res)=>{
         const newCampGround = new Campground({
             title: req.body.title,
             location: req.body.location,
