@@ -14,16 +14,23 @@ route.get('/newcampground',(req,res)=>{
     res.render('newCampground');
 })
 
-route.post('/newcampground/create',async (req,res)=>{
-    const newCampGround = new Campground({
-      title: req.body.title,
-      location: req.body.location,
-      price: req.body.price,
-      image: req.body.image,
-      description: req.body.description,
-    });
-    await newCampGround.save();
-    res.redirect(`/show/${newCampGround._id}`);
+route.post('/newcampground/create',async (req,res,next)=>{
+    try
+    {
+        const newCampGround = new Campground({
+            title: req.body.title,
+            location: req.body.location,
+            price: req.body.price,
+            image: req.body.image,
+            description: req.body.description,
+        });
+        await newCampGround.save();
+        res.redirect(`/show/${newCampGround._id}`);
+    }
+    catch(e)
+    {
+        next(e);
+    }
 })
 
 
@@ -73,32 +80,9 @@ route.delete('/editcampground/:id',async (req,res)=>{
 })
 
 
-
-
-
-
-
-// route.get('/createpost',async (req,res)=>{
-//     const samplePost = await new Campground({
-//       title: "Wayanad",
-//       price: "$30",
-//       description:"Good Place"
-//     });
-//     samplePost.save().then(() => {
-//         console.log("Successfully saved");
-//         res.json(samplePost);
-//     }).catch((err) => {
-//         console.log(new Error(err).message, res.statusCode);
-//     });
-// })
-
-
-// route.delete('/:postId',async (req,res)=>{
-//     const {postId}=req.params;
-//     console.log(postId);
-//     const delPost=await Campground.findByIdAndDelete(postId);
-//     res.json(delPost);
-// })
+route.use((err,req,res,next)=>{
+    res.send("Something went wrong");
+})
 
 
 module.exports=route;
