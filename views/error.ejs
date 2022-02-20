@@ -1,0 +1,8 @@
+<% layout('layout/boilerplate') %>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="alert alert-danger text-center" role="alert">
+            <h1 class="display-1">Error <%= err.statusCode %> </h1>
+            <p><%= err.message %> </p>
+        </div>
+    </div>
