@@ -14,7 +14,7 @@ const ExpressError = require('../utils/ExpressError');
 
 //@ Importing campgroundSchema model
 const Campground = require('../model/campground');
-const { append } = require('express/lib/response');
+
 const route = express.Router();
 
 
