@@ -1,30 +1,37 @@
 <% layout('layout/boilerplate') %>
-<h1 class="display-5 text-center mb-5">New CampGround</h1>
+    <h1 class="display-5 text-center mb-5">New CampGround</h1>
 
-<div class="row">
-    <div class="col-6 offset-3">
-        <form action="/newcampground/create" method="post">
-            
-            <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" placeholder="Title" id="title" class="form-control mb-3">
-            
-            <label for="imageurl" class="form-label">Image URL</label>
-            <input type="url" name="image" placeholder="Image URL" id="imageurl" class="form-control mb-3">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <!-- novalidate attribute prevents the browser to default validate the form  -->
+            <form action="/newcampground/create" method="post" novalidate class="needs-validation">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" placeholder="Title" id="title" class="form-control mb-3" required />
+                <div class="invalid-feedback">Please provide a title.</div>
 
-            <label for="location" class="form-label">Location</label>
-            <input type="text" name="location" placeholder="Location" id="location" class="form-control mb-3">
-            
-            <label for="price" class="form-label">CampGround Price</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="price-label" >$</span>
-                <input type="text" class="form-control" id="price" placeholder="0.00">
-            </div>
+                <label for="imageurl" class="form-label">Image URL</label>
+                <input type="url" name="image" placeholder="Image URL" id="imageurl" class="form-control mb-3"
+                    required />
+                <div class="invalid-feedback">Please provide a valid URL.</div>
 
-            <label for="description" class="form-label">Description</label>
-            <textarea name="description" placeholder="Description" id="description" class="form-control mb-3" cols="30" rows="3"></textarea>
+                <label for="location" class="form-label">Location</label>
+                <input type="text" name="location" placeholder="Location" id="location" class="form-control mb-3"
+                    required />
+                <div class="invalid-feedback">Please provide a location.</div>
 
+                <label for="price" class="form-label">CampGround Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" id="price" placeholder="0.00" required />
+                </div>
+                <div class="invalid-feedback">Please provide a valid price.</div>
 
-            <button type="submit" class="btn btn-success mt-3">Add CampGround</button>
-        </form>
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" placeholder="Description" id="description" class="form-control mb-3"
+                    cols="30" rows="3" required></textarea>
+                <div class="invalid-feedback">Please provide a description.</div>
+
+                <button type="submit" class="btn btn-success mt-3">Add CampGround</button>
+            </form>
+        </div>
     </div>
-</div>

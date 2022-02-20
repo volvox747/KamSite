@@ -1,34 +1,36 @@
 <% layout('layout/boilerplate') %>
 
+    <h1 class="display-5 text-center mb-5">Edit CampGround</h1>
 
-<h1 class="display-5 text-center mb-5">Edit CampGround</h1>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <form action="/editcampground/<%= editCampGround._id %>?_method=PUT" method="post" novalidate
+                class="needs-validation">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" value="<%= editCampGround.title %>" id="title" class="form-control mb-3"
+                    required />
 
-<div class="row">
-    <div class="col-6 offset-3">
-        <form action="/editcampground/<%= editCampGround._id %>?_method=PUT" method="post">
+                <label for="imageurl" class="form-label">Image URL</label>
+                <input type="url" name="image" value="<%= editCampGround.image %>" id="imageurl"
+                    class="form-control mb-3" required />
 
-            <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" value="<%= editCampGround.title %>" id="title" class="form-control mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" name="location" value="<%= editCampGround.location %>" id="location"
+                    class="form-control mb-3" required />
 
-            <label for="imageurl" class="form-label">Image URL</label>
-            <input type="url" name="image" value="<%= editCampGround.image %>" id="imageurl" class="form-control mb-3">
+                <label for="price" class="form-label">CampGround Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" name="price" id="price" value="<%= editCampGround.price %>" required />
+                </div>
 
-            <label for="location" class="form-label">Location</label>
-            <input type="text" name="location" value="<%= editCampGround.location %>" id="location"
-                class="form-control mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" id="description" class="form-control mb-3" cols="30" rows="3" required>
+<%= editCampGround.description %></textarea>
 
-            <label for="price" class="form-label">CampGround Price</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="price-label">$</span>
-                <input type="text" class="form-control" id="price" value="<%= editCampGround.price %>">
-            </div>
-
-            <label for="description" class="form-label">Description</label>
-            <textarea name="description"  id="description"
-                class="form-control mb-3" cols="30" rows="3"><%= editCampGround.description %></textarea>
-
-
-            <button type="submit" class="btn btn-success mt-3">Edit CampGround</button>
-        </form>
+                <button type="submit" class="btn btn-success mt-3">
+                    Edit CampGround
+                </button>
+            </form>
+        </div>
     </div>
-</div>
