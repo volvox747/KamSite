@@ -53,7 +53,6 @@ route.get('/editcampground/:id/edit',catchAsync(async (req,res)=>{
 
 route.put('/editcampground/:id',catchAsync(async (req,res)=>{
     const {id}=req.params;
-    console.log(req.body);
     await Campground.findByIdAndUpdate(
       id,
       {
@@ -83,17 +82,12 @@ route.all('*',catchAsync(async (req,res,next)=>{
     throw new ExpressError('Not Found!!',404);
 }))
 
+
 //? Error handling middleware 
 route.use((err,req,res,next)=>{
     //& Destructuring and setting default values for destructured elements 
-    if(!err.statusCode) 
-    {
-        err.statusCode=500;
-    }
-    else if(!err.message) 
-    {
-        err.message='Something Wrong';
-    }
+    if(!err.statusCode) err.statusCode=500;
+    else if(!err.message) err.message='Something Wrong';
     res.render('error',{err});
 })
 
