@@ -35,7 +35,7 @@ const campgroundSchema=new Schema({
 campgroundSchema.post('findOneAndDelete',async (campground)=>{
     if(campground.reviews.length!=0)
     {
-        await Review.deleteMany(_id,{$in:campground.reviews});
+        await Review.deleteMany({_id:{$in:campground.reviews}});
     }
 })
 module.exports=mongoose.model('Campground',campgroundSchema);
