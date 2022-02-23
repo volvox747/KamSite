@@ -19,4 +19,4 @@ const Joi = require('joi');
     rating:Joi.number().required()
   })
 
-module.exports=require('./schemas');
+module.exports={campgroundValidationSchema,reviewValidationSchema};
