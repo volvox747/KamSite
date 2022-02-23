@@ -38,7 +38,7 @@ const campgroundValidationFunction= (req,res,next)=>{
 }
 
 const reviewValidationFunction=(req,res,next)=>{
-  const validatedResult = campgroundValidationSchema.validate(req.body);
+  const validatedResult = reviewValidationSchema.validate(req.body);
   const { error } = validatedResult;
   if (error) 
   {
