@@ -1,8 +1,8 @@
 <% layout('layout/boilerplate') %>
 
 <div class="row">
-    <div class="col-6 offset-5">
-        <div class="card" style="width: 20rem;">
+    <div class="col-6 offset-4">
+        <div class="card" style="width: 23rem;">
             <img src="<%= showCampGround.image %>" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title"><%= showCampGround.title %></h5>
@@ -20,14 +20,15 @@
             </div>
         </div>
 
-        <div class="card">
-            <h2 class="display-4">Leave a Review</h2>
+        <div class="card p-4 mt-5" style="width: 25rem;">
+            <h4 class="display-6">Leave a Review</h2>
             <form action="/showcampground/<%=showCampGround._id%>/review " method="post">
                 <label for="rating" class="form-label">Rate from 1 to 5</label>
                 <input type="range" class="form-range" name="rating" min="0" max="5" step="1" id="rating">
     
-                <label for="body">Feedback</label>
-                <textarea name="body" id="body" cols="3" rows="5"></textarea>
+                <label for="body" class="form-label">Feedback</label>
+                <textarea name="body" class="form-control mb-3" id="body" cols="6" rows="2"></textarea>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
         </div>
