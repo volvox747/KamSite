@@ -5,7 +5,7 @@ const express = require('express');
 const Joi = require('joi');
 
 //@ Importing validationSchema to validate the data or server side validation  
-const {validationSchema}=require('../schemas');
+const {campgroundValidationSchema,reviewValidationSchema}=require('../schemas');
 
 
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class  
@@ -19,9 +19,9 @@ const Review = require('../model/review');
 const route = express.Router();
 
 
-const validationFunction= (req,res,next)=>{
+const campgroundValidationFunction= (req,res,next)=>{
   //@ validating the incoming data using the above defined model
-  const validatedResult = validationSchema.validate(req.body);
+  const validatedResult = campgroundValidationSchema.validate(req.body);
 
   //@ destructuring the "error" object to handle any server side errors
   const { error } = validatedResult;
@@ -31,6 +31,17 @@ const validationFunction= (req,res,next)=>{
   {
     //@ using "map" to map the object's msg from details
     //@ using "join" to join, if there are more than 1 msg
+    const msg = error.details.map((err) => err.message).join(",");
+    throw new ExpressError(msg, 400);
+  }
+  next();
+}
+
+const reviewValidationFunction=(req,res,next)=>{
+  const validatedResult = campgroundValidationSchema.validate(req.body);
+  const { error } = validatedResult;
+  if (error) 
+  {
     const msg = error.details.map((err) => err.message).join(",");
     throw new ExpressError(msg, 400);
   }
@@ -47,7 +58,7 @@ route.get('/newcampground', catchAsync((req, res) => {
 }))
 
 //@ validationFunction middleware is used so that server side validation is done before saving to the database 
-route.post('/newcampground/create', validationFunction, catchAsync(async (req, res) => {
+route.post('/newcampground/create', campgroundValidationFunction, catchAsync(async (req, res) => {
     
     const newCampGround = new Campground({
         title: req.body.title,
@@ -66,7 +77,7 @@ route.post('/newcampground/create', validationFunction, catchAsync(async (req, r
  ? Create a review route to post the reviews of particular campground 
  ****************************************************************************************************************************************************************/
 
-route.post('/showcampground/:id/review',async(req,res)=>{
+route.post('/showcampground/:id/review',reviewValidationFunction,catchAsync(async(req,res)=>{
 const {id}=req.params;
 const campground=await Campground.findById(id);
 const review =new Review(req.body);
@@ -75,7 +86,7 @@ campground.reviews.push(review);
 await campground.save();
 console.log(id);
 res.redirect(`/show/${id}`);
-})
+}))
 
 
 
@@ -111,7 +122,7 @@ route.get('/editcampground/:id/edit', catchAsync(async (req, res) => {
 }))
 
 //@ validationFunction middleware is used so that server side validation is done before saving to the database 
-route.put('/editcampground/:id', validationFunction, catchAsync(async (req, res) => {
+route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
