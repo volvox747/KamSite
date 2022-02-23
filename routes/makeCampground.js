@@ -102,7 +102,7 @@ route.get('/show/:id', catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
-    const showCampGround = await Campground.findById(id);
+    const showCampGround = await Campground.findById(id).populate('reviews');
     res.render("showCampground", {
         showCampGround
     });
