@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const review = require('./review');
 
 const Schema=mongoose.Schema;
 
@@ -22,7 +23,13 @@ const campgroundSchema=new Schema({
     image:{
         type:String,
         required:true
-    }
+    },
+    reviews:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Review'                                 // One to Many Relationship
+        }
+    ]
 });
 
 module.exports=mongoose.model('Campground',campgroundSchema);
