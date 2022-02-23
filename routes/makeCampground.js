@@ -151,6 +151,21 @@ route.delete('/editcampground/:id', catchAsync(async (req, res) => {
 
 
 
+/* ***************************************************************************************************************************************************************
+ ? Create a delete route to delete the reviews of particular campground 
+ ****************************************************************************************************************************************************************/
+
+
+route.delete('/showcamground/:campId/review/:revID',async(req,res)=>{
+    const {campID,revID}=req.params;
+    await Campground.findByIdAndUpdate(campID,{$pull:{reviews:revID}});
+    await Review.findByIdAndDelete(revID);
+    res.redirect(`/show/${campID}`);
+})
+
+
+
+
 //@ This route handles express errors whenever the routes are invalid or does'nt match
 route.all('*', catchAsync(async (req, res, next) => {
     throw new ExpressError('Not Found!!', 404);
