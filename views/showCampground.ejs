@@ -40,8 +40,9 @@
             <div class="card p-3 mb-3">
                 <h5 class="card-title"><%= review.rating%></h5>
                 <p class="card-text"><%=review.body%></p>
-                <form action="/showcampground/<%= showCampGround._id %>/review/<%= review._id %>?_method=DELETE  " method="post"></form>
-                <button class="btn btn-sm btn-danger">Delete</button>
+                <form action="/showcamground/<%= showCampGround._id %>/review/<%= review._id %>?_method=DELETE " method="post">
+                    <button type="submit"class="btn btn-sm btn-danger">Delete</button>
+                </form>
             </div>
         <% } %>  
     </div>
