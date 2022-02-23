@@ -84,7 +84,6 @@ const review =new Review(req.body);
 await review.save();
 campground.reviews.push(review);
 await campground.save();
-console.log(id);
 res.redirect(`/show/${id}`);
 }))
 
@@ -156,12 +155,13 @@ route.delete('/editcampground/:id', catchAsync(async (req, res) => {
  ****************************************************************************************************************************************************************/
 
 
-route.delete('/showcamground/:campId/review/:revID',async(req,res)=>{
-    const {campID,revID}=req.params;
-    await Campground.findByIdAndUpdate(campID,{$pull:{reviews:revID}});
-    await Review.findByIdAndDelete(revID);
-    res.redirect(`/show/${campID}`);
-})
+route.delete('/showcamground/:campid/review/:revid',catchAsync(async(req,res)=>{
+    const {campid,revid}=req.params;
+    console.log(req.params);
+    await Campground.findByIdAndUpdate(campid,{$pull:{reviews:revid}});
+    await Review.findByIdAndDelete(revid);
+    res.redirect(`/show/${campid}`);
+}))
 
 
 
