@@ -22,12 +22,13 @@
 
         <div class="card p-4 mt-5" style="width: 25rem;">
             <h4 class="display-6">Leave a Review</h2>
-            <form action="/showcampground/<%=showCampGround._id%>/review" method="post">
+            <form action="/showcampground/<%=showCampGround._id%>/review" method="post" novalidate class="needs-validation">
                 <label for="rating" class="form-label">Rate from 1 to 5</label>
                 <input type="range" class="form-range" name="rating" min="0" max="5" step="1" id="rating">
     
                 <label for="body" class="form-label">Feedback</label>
-                <textarea name="body" class="form-control mb-3" id="body" cols="6" rows="2"></textarea>
+                <textarea name="body" class="form-control mb-3" id="body" cols="6" rows="2" required></textarea>
+                <div class="invalid-feedback">Please type a comment.</div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
