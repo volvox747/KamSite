@@ -12,8 +12,9 @@ const {validationSchema}=require('../schemas');
 const catchAsync = require('../utils/catchAsyncError');
 const ExpressError = require('../utils/ExpressError');
 
-//@ Importing campgroundSchema model
+//@ Importing campgroundSchema and Review model
 const Campground = require('../model/campground');
+const Review = require('../model/review');
 
 const route = express.Router();
 
@@ -36,6 +37,9 @@ const validationFunction= (req,res,next)=>{
   next();
 }
 
+
+
+
 //$ CREATE
 
 route.get('/newcampground', catchAsync((req, res) => {
@@ -56,6 +60,23 @@ route.post('/newcampground/create', validationFunction, catchAsync(async (req, r
     res.redirect(`/show/${newCampGround._id}`);
 
 }))
+
+
+/* ***************************************************************************************************************************************************************
+ ? Create a review route to post the reviews of particular campground 
+ ****************************************************************************************************************************************************************/
+
+route.post('/showcampground/:id/review',async(req,res)=>{
+const {id}=req.params;
+const campground=await Campground.findById(id);
+const review =new Review(req.body);
+await review.save();
+campground.reviews.push(review);
+await campground.save();
+console.log(id);
+res.redirect(`/show/${id}`);
+})
+
 
 
 //$ READ 
