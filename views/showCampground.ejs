@@ -1,7 +1,7 @@
 <% layout('layout/boilerplate') %>
 
 <div class="row">
-    <div class="col-6 offset-4">
+    <div class="col-6">
         <div class="card" style="width: 23rem;">
             <img src="<%= showCampGround.image %>" class="card-img-top" alt="...">
             <div class="card-body">
@@ -20,7 +20,9 @@
             </div>
         </div>
 
-        <div class="card p-4 mt-5" style="width: 25rem;">
+    </div>
+    <div class="col-6">
+        <div class="card p-4 my-5" style="width: 25rem;">
             <h4 class="display-6">Leave a Review</h2>
             <form action="/showcampground/<%=showCampGround._id%>/review" method="post" novalidate class="needs-validation">
                 <label for="rating" class="form-label">Rate from 1 to 5</label>
@@ -31,7 +33,17 @@
                 <div class="invalid-feedback ">Please type a comment.</div>
                 <button type="submit" class="btn btn-success mt-3">Submit</button>
             </form>
-
         </div>
+
+        <h4 class="display-6">Reviews</h4>
+        <% for (let review of showCampGround.reviews) {%>
+            <div class="card p-3 mb-3">
+                <h5 class="card-title"><%= review.rating%></h5>
+                <p class="card-text"><%=review.body%></p>
+                <form action="/showcamground/<%= showCampGround._id %>/review/<%= review._id %>?_method=DELETE " method="post">
+                    <button type="submit"class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        <% } %>  
     </div>
 </div>

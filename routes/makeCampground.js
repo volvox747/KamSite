@@ -84,7 +84,6 @@ const review =new Review(req.body);
 await review.save();
 campground.reviews.push(review);
 await campground.save();
-console.log(id);
 res.redirect(`/show/${id}`);
 }))
 
@@ -102,7 +101,7 @@ route.get('/show/:id', catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
-    const showCampGround = await Campground.findById(id);
+    const showCampGround = await Campground.findById(id).populate('reviews');
     res.render("showCampground", {
         showCampGround
     });
@@ -148,6 +147,22 @@ route.delete('/editcampground/:id', catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(id);
     res.redirect('/find');
 }))
+
+
+
+/* ***************************************************************************************************************************************************************
+ ? Create a delete route to delete the reviews of particular campground 
+ ****************************************************************************************************************************************************************/
+
+
+route.delete('/showcamground/:campid/review/:revid',catchAsync(async(req,res)=>{
+    const {campid,revid}=req.params;
+    console.log(req.params);
+    await Campground.findByIdAndUpdate(campid,{$pull:{reviews:revid}});
+    await Review.findByIdAndDelete(revid);
+    res.redirect(`/show/${campid}`);
+}))
+
 
 
 
