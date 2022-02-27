@@ -1,5 +1,7 @@
 //* This file is used to define the differnt types of schemas 
 
+//@ Importing a validation tool 'JOI' which is easy when compared to writing custome or manually validations
+//@ This tool was introduced as it is easy to validate rather than writing custom validations
 const Joi = require('joi');
 
 //@ validating form using Joi module
@@ -9,7 +11,7 @@ const Joi = require('joi');
     location: Joi.string().required(),
     price: Joi.string().required().min(0),
     image: Joi.string().required(),
-    description: Joi.string().required().length(60).min(10)
+    description: Joi.string().required().min(10)
   });
 
   //@ validating review form using Joi module
