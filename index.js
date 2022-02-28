@@ -16,6 +16,14 @@ app.engine('ejs',ejsMate);
 app.use(express.urlencoded({extended:true}))
 
 
+//@ Importing and using 'express-session'  and setting a session
+const session = require('express-session');
+app.use(session({
+  secret:'kamsite',
+  resave:false,
+  saveUninitialized:true
+})); 
+
 
 //@ Importing m'method-override' pck to do additional request such as PUT,PATCH,DELETE 
 const methodOverride = require('method-override');
