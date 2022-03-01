@@ -4,7 +4,12 @@ const app = express();
 
 //@ Importing and using 'flash as a middleware
 const flash=require('flash');
-app.use(flash()); 
+app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.success=req.flash('success');
+  next()
+})
 
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class  
 const catchAsync = require('./utils/catchAsyncError');
