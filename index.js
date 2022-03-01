@@ -2,14 +2,6 @@
 const express = require("express");
 const app = express();
 
-//@ Importing and using 'flash as a middleware
-const flash=require('flash');
-app.use(flash());
-
-app.use((req,res,next)=>{
-  res.locals.success=req.flash('success');
-  next()
-})
 
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class  
 const catchAsync = require('./utils/catchAsyncError');
@@ -55,6 +47,15 @@ const path = require("path");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+
+//@ Importing and using 'flash as a middleware
+const flash=require('connect-flash');
+app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.success = req.flash("success");
+  next();
+})
 
 
 //@ Importing route and using as a middleware 

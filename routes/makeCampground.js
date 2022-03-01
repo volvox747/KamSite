@@ -111,6 +111,7 @@ route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async 
         description: req.body.description,
     }
     );
+    req.flash('success','Successfully edited the existing campground')
     res.redirect(`/campground/show/${id}`);
 }))
 
