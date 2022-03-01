@@ -58,6 +58,7 @@ route.post('/newcampground/create', campgroundValidationFunction, catchAsync(asy
         description: req.body.description,
     });
     await newCampGround.save();
+    req.flash('success',"Successfully created a new campground!!")
     res.redirect(`/campground/show/${newCampGround._id}`);
 
 }))
