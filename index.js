@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 
+
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class  
 const catchAsync = require('./utils/catchAsyncError');
 const ExpressError = require('./utils/ExpressError');
@@ -15,6 +16,14 @@ app.engine('ejs',ejsMate);
 //@ To accept data from "forms" we use this middleware,if not the req.body will 'undefined' 
 app.use(express.urlencoded({extended:true}))
 
+
+//@ Importing and using 'express-session'  and setting a session
+const session = require('express-session');
+app.use(session({
+  secret:'kamsite',
+  resave:false,
+  saveUninitialized:true
+})); 
 
 
 //@ Importing m'method-override' pck to do additional request such as PUT,PATCH,DELETE 
@@ -38,6 +47,15 @@ const path = require("path");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+
+//@ Importing and using 'flash as a middleware
+const flash=require('connect-flash');
+app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.success = req.flash("success");
+  next();
+})
 
 
 //@ Importing route and using as a middleware 

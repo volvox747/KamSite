@@ -58,6 +58,7 @@ route.post('/newcampground/create', campgroundValidationFunction, catchAsync(asy
         description: req.body.description,
     });
     await newCampGround.save();
+    req.flash('success',"Successfully created a new campground!!")
     res.redirect(`/campground/show/${newCampGround._id}`);
 
 }))
@@ -110,6 +111,7 @@ route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async 
         description: req.body.description,
     }
     );
+    req.flash('success','Successfully edited the existing campground')
     res.redirect(`/campground/show/${id}`);
 }))
 

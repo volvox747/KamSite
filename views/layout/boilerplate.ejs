@@ -17,6 +17,7 @@
 
     
     <section class="container py-5">
+         <%- include("../partials/alert") %>
         <%- body %>    
     </section>
     
@@ -29,28 +30,7 @@
 
 
 
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-</script>
+<script src="/public/js/formValidation.js"></script>
 
 
 
