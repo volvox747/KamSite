@@ -123,6 +123,7 @@ route.delete('/editcampground/:id', catchAsync(async (req, res) => {
         id
     } = req.params;
     await Campground.findByIdAndDelete(id);
+    req.flash("error", "Deleted a Campground");
     res.redirect("/campground/find");
 }))
 

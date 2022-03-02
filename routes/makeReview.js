@@ -68,7 +68,7 @@ route.delete('/showcamground/:campid/review/:revid',catchAsync(async(req,res)=>{
     const {campid,revid}=req.params;
     await Campground.findByIdAndUpdate(campid,{$pull:{reviews:revid}});
     await Review.findByIdAndDelete(revid);
-    req.flash('error',"Deeleted a Review");
+    req.flash('error',"Deleted a Review");
     res.redirect(`/campground/show/${campid}`);
 }))
 
