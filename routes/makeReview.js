@@ -53,6 +53,7 @@ const review =new Review(req.body);
 await review.save();
 campground.reviews.push(review);
 await campground.save();
+req.flash('success',"Created a new Review!!");
 res.redirect(`/campground/show/${id}`);
 }))
 
