@@ -15,13 +15,17 @@ route.get('/register',async(req,res)=>{
     res.render('register');
 })
 
-route.post('/register',catchAsync(async(req,res)=>{
+route.post('/register',catchAsync(async(req,res,next)=>{
     try{
         const {username,email,password}=req.body;
         const user=new User({username,email});
-        await User.register(user,password);
-        req.flash('success',"Welcome to KamSite")
-        res.redirect('/campground/find');
+        const newUser=await User.register(user,password);
+        //@ after the user register it should be in logged in
+        req.login(newUser,(err)=>{//callback fn
+           if(err) return next(err)
+            req.flash('success',"Welcome to KamSite")
+            res.redirect('/campground/find');
+        }) 
     }
     catch(err)
     {
