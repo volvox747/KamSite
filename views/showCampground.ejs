@@ -11,6 +11,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= showCampGround.location %></li>
                 <li class="list-group-item">$ <%= showCampGround.price %>/night</li>
+                <li class="list-group-item">Posted By <%= showCampGround.author %></li>
             </ul>
             <div class="card-body">
                 <a href="/campground/editcampground/<%=showCampGround._id%>/edit" class="card-link btn btn-info">Edit</a>
