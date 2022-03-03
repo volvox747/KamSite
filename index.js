@@ -78,7 +78,11 @@ app.set("view engine", "ejs");
 const flash=require('connect-flash');
 app.use(flash());
 
+
+//@ Global variables  
 app.use((req,res,next)=>{
+  //& these variables can be used in any and evry template usimg ejs 
+  res.locals.currentUser=req.user; //* req.user will display the username and email of the user who has logged in
   res.locals.success = req.flash("success");
   res.locals.error=req.flash("error");
   next();

@@ -11,6 +11,17 @@
                 <a class="nav-link" href="/campground/find">All Campgrounds</a>
                 <a class="nav-link" href="/campground/newcampground">New Campgrounds</a>
             </div>
+
+            <div class="navbar-nav">
+                <!-- if the user is not logged in then show this, -->
+                <% if (!currentUser) { %>
+                    <div class="nav-link">Login</div>
+                    <div class="nav-link">Register</div>
+                 
+                <% } else{ %>
+                <div class="nav-link">Logout</div>
+                <% } %> 
+            </div>
         </div>
     </div>
 </nav>
