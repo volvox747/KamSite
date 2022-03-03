@@ -60,7 +60,8 @@ route.post('/newcampground/create', campgroundValidationFunction, catchAsync(asy
         image: req.body.image,
         description: req.body.description,
     });
-    newCampGround.author=req.user_id;// this registers the id of the user which is created on registering the website
+    let ans=req.user._id.toString();
+    newCampGround.author=ans; //$ this registers the id of the user which is created on registering the website
     await newCampGround.save();
     req.flash('success',"Successfully created a new campground!!")
     res.redirect(`/campground/show/${newCampGround._id}`);
