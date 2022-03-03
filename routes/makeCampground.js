@@ -60,7 +60,7 @@ route.post('/newcampground/create', campgroundValidationFunction, catchAsync(asy
         image: req.body.image,
         description: req.body.description,
     });
-    let ans=req.user._id.toString();
+    let ans=req.user._id.toString();//req.user._id will be in new ObjectId('5345363c453453') format which cannot be inserted into mongoDB
     newCampGround.author=ans; //$ this registers the id of the user which is created on registering the website
     await newCampGround.save();
     req.flash('success',"Successfully created a new campground!!")
