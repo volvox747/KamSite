@@ -12,7 +12,10 @@ const ExpressError = require('../utils/ExpressError');
 
 //@ Importing Campground Model
 const Campground = require('../model/campground');
+ 
 
+//@ Importing isLoggedIn middleware
+const {isLoggedIn}=require('../middleware'); 
 
 
 
@@ -43,7 +46,7 @@ const campgroundValidationFunction= (req,res,next)=>{
 
 //$ CREATE
 
-route.get('/newcampground', catchAsync((req, res) => {
+route.get('/newcampground', isLoggedIn, catchAsync((req, res) => {
     res.render('newCampground');
 }))
 
@@ -87,7 +90,7 @@ route.get('/show/:id', catchAsync(async (req, res) => {
 
 //$ UPDATE 
 
-route.get('/editcampground/:id/edit', catchAsync(async (req, res) => {
+route.get('/editcampground/:id/edit',isLoggedIn, catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
@@ -118,11 +121,12 @@ route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async 
 
 //$ DELETE
 
-route.delete('/editcampground/:id', catchAsync(async (req, res) => {
+route.delete('/editcampground/:id',isLoggedIn, catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
     await Campground.findByIdAndDelete(id);
+    req.flash("error", "Deleted a Campground");
     res.redirect("/campground/find");
 }))
 

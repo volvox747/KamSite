@@ -5,7 +5,7 @@ const route = express.Router({mergeParams:true});
 //@ Importing Campground Model and Review Model
 const Campground = require('../model/campground');
 const Review = require("../model/review");
-
+ 
 
 //@ Importing reviewValidationSchema to validate the review data or server side validation  
 const {reviewValidationSchema}=require('../schemas');
@@ -16,6 +16,8 @@ const catchAsync = require('../utils/catchAsyncError');
 const ExpressError = require('../utils/ExpressError');
 
 
+//@ Importing isLoggedIn middleware
+const {isLoggedIn}=require('../middleware');
 
 
 //@ CampGround Validation Function 
@@ -46,13 +48,14 @@ const reviewValidationFunction = (req, res, next) => {
  ? Create a review route to post the reviews of particular campground 
  ****************************************************************************************************************************************************************/
 
-route.post('/showcampground/:id/review',reviewValidationFunction,catchAsync(async(req,res)=>{
+route.post('/showcampground/:id/review',isLoggedIn,reviewValidationFunction,catchAsync(async(req,res)=>{
 const {id}=req.params;
 const campground=await Campground.findById(id);
 const review =new Review(req.body);
 await review.save();
 campground.reviews.push(review);
 await campground.save();
+req.flash('success',"Created a new Review!!");
 res.redirect(`/campground/show/${id}`);
 }))
 
@@ -63,10 +66,11 @@ res.redirect(`/campground/show/${id}`);
  ****************************************************************************************************************************************************************/
 
 
-route.delete('/showcamground/:campid/review/:revid',catchAsync(async(req,res)=>{
+route.delete('/showcamground/:campid/review/:revid',isLoggedIn, catchAsync(async(req,res)=>{
     const {campid,revid}=req.params;
     await Campground.findByIdAndUpdate(campid,{$pull:{reviews:revid}});
     await Review.findByIdAndDelete(revid);
+    req.flash('error',"Deleted a Review");
     res.redirect(`/campground/show/${campid}`);
 }))
 
