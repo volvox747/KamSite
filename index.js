@@ -73,6 +73,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 
+
 //@ Importing and using 'flash as a middleware
 const flash=require('connect-flash');
 app.use(flash());
@@ -85,7 +86,6 @@ app.use((req,res,next)=>{
 
 
 //@ Importing route and using as a middleware 
-
 const user=require('./routes/user');
 app.use('/',user);
 
