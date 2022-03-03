@@ -6,6 +6,8 @@ const route = express.Router({mergeParams:true});
 const Campground = require('../model/campground');
 const Review = require("../model/review");
 
+//@ Importing isLoggedIn middleware
+const {isLoggedIn}=require('../middleware'); 
 
 //@ Importing reviewValidationSchema to validate the review data or server side validation  
 const {reviewValidationSchema}=require('../schemas');
@@ -46,7 +48,7 @@ const reviewValidationFunction = (req, res, next) => {
  ? Create a review route to post the reviews of particular campground 
  ****************************************************************************************************************************************************************/
 
-route.post('/showcampground/:id/review',reviewValidationFunction,catchAsync(async(req,res)=>{
+route.post('/showcampground/:id/review',isLoggedIn,reviewValidationFunction,catchAsync(async(req,res)=>{
 const {id}=req.params;
 const campground=await Campground.findById(id);
 const review =new Review(req.body);
@@ -64,7 +66,7 @@ res.redirect(`/campground/show/${id}`);
  ****************************************************************************************************************************************************************/
 
 
-route.delete('/showcamground/:campid/review/:revid',catchAsync(async(req,res)=>{
+route.delete('/showcamground/:campid/review/:revid',isLoggedIn, catchAsync(async(req,res)=>{
     const {campid,revid}=req.params;
     await Campground.findByIdAndUpdate(campid,{$pull:{reviews:revid}});
     await Review.findByIdAndDelete(revid);
