@@ -14,7 +14,12 @@ const userSchema=new Schema({
     }
 })
 
-//^ Building username and password with in-built verification using passprt-local-mongoose
-userSchema.plugin(passportLocalMongoose);
+/*********************************************************************************************************
+ *^ Building username and password with in-built verification using passprt-local-mongoose            *
+ *^ This pulgin checks whether the username is unique and stores                                      *
+ *^ It also hashes the password and adds a salt value to it to make encrypted even furthr and stores. *
+ *********************************************************************************************************/
+
+ userSchema.plugin(passportLocalMongoose);
 
 module.exports=mongoose.model('User',userSchema);
