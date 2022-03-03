@@ -5,9 +5,7 @@ const route = express.Router({mergeParams:true});
 //@ Importing Campground Model and Review Model
 const Campground = require('../model/campground');
 const Review = require("../model/review");
-
-//@ Importing isLoggedIn middleware
-const {isLoggedIn}=require('../middleware'); 
+ 
 
 //@ Importing reviewValidationSchema to validate the review data or server side validation  
 const {reviewValidationSchema}=require('../schemas');
@@ -18,6 +16,15 @@ const catchAsync = require('../utils/catchAsyncError');
 const ExpressError = require('../utils/ExpressError');
 
 
+
+//@ Login middleware 
+const isLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    req.flash("error", "You are not logged in");
+    res.redirect("/login");
+  }
+  next();
+};
 
 
 //@ CampGround Validation Function 
