@@ -40,4 +40,10 @@ route.post('/login',passport.authenticate('local',{failureRedirect:'/login',fail
     res.redirect('/campground/find');
 })
 
+route.get('/logout',(req,res)=>{
+    req.logout();
+    req.flash('success','Succesfully Logged Out');
+    res.redirect('/campground/find');
+})
+
 module.exports=route;
