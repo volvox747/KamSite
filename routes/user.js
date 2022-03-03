@@ -41,7 +41,11 @@ route.get('/login',(req,res)=>{
 
 route.post('/login',passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),(req,res)=>{
     req.flash('success','Welcome to KampSite');
-    res.redirect('/campground/find');
+    //@ this is done so that the user can resume where he was interrupted. 
+    const redirectUrl=req.session.returnTo || '/campground/find' //this gives the url were the /login route was triggered
+    //@ after resuming its better to delete the route as it may take up space in the session 
+    delete req.session.returnTo;
+    return res.redirect(redirectUrl);
 })
 
 route.get('/logout',(req,res)=>{
