@@ -16,15 +16,8 @@ const catchAsync = require('../utils/catchAsyncError');
 const ExpressError = require('../utils/ExpressError');
 
 
-
-//@ Login middleware 
-const isLoggedIn = (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    req.flash("error", "You are not logged in");
-    res.redirect("/login");
-  }
-  next();
-};
+//@ Importing isLoggedIn middleware
+const {isLoggedIn}=require('../middleware');
 
 
 //@ CampGround Validation Function 
