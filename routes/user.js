@@ -1,6 +1,9 @@
 const express = require("express");
 const route = express.Router({ mergeParams: true });
 
+//@ Importing passport
+const passport = require('passport'); 
+
 
 const catchAsync = require("../utils/catchAsyncError");
 
@@ -27,5 +30,15 @@ route.post('/register',catchAsync(async(req,res)=>{
         res.redirect('/register')
     }
 }))
+
+
+route.get('/login',(req,res)=>{
+    res.render('login')
+})
+
+route.post('/login',passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),(req,res)=>{
+    req.flash('success','Welcome to KampSite');
+    res.redirect('/campground/find');
+})
 
 module.exports=route;
