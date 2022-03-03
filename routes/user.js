@@ -10,3 +10,6 @@ route.get('/register',async(req,res)=>{
     res.render('register');
 })
 
+
+
+module.exports=route;

@@ -85,11 +85,16 @@ app.use((req,res,next)=>{
 
 
 //@ Importing route and using as a middleware 
+
+const user=require('./routes/user');
+app.use('/',user);
+
 const campground = require("./routes/makeCampground");
 app.use('/campground',campground);
 
 const review=require('./routes/makeReview');
 app.use('/review',review);
+
 
 
 
