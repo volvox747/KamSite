@@ -31,6 +31,8 @@ route.post('/showcampground/:id/review', isLoggedIn, reviewValidationFunction, c
   } = req.params;
   const campground = await Campground.findById(id);
   const review = new Review(req.body);
+  let ans = req.user._id.toString(); //req.user._id will be in new ObjectId('5345363c453453') format which cannot be inserted into mongoDB
+  review.author = ans;
   await review.save();
   campground.reviews.push(review);
   await campground.save();
