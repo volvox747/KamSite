@@ -64,9 +64,10 @@ route.get(
             id
         } = req.params;
         const showCampGround = await Campground.findById(id)
-            .populate("reviews")
-            .populate("author");
-        res.render("showCampground", {
+            .populate({path:'reviews',populate:{path:'author',model:'User'}}) //this populates the reviews and thier correspondend users
+            .populate("author");// this populates the campground's author/user
+        console.log(showCampGround);
+            res.render("showCampground", {
             showCampGround,
         });
     })
