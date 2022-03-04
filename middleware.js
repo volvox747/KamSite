@@ -1,12 +1,10 @@
 //@ Importing Campground Model
 const Campground = require("./model/campground");
 
-//@ Importing campgroundValidationSchema to validate the campground data or server side validation
-const {
-    campgroundValidationSchema
-} = require("../schemas");
+//@ Importing campgroundValidationSchema and reviewValidationSchema to validate the campground data and reviews data or server side validation
+const {campgroundValidationSchema, reviewValidationSchema} = require("./schemas");
 
-const ExpressError = require("../utils/ExpressError");
+const ExpressError = require("./utils/ExpressError");
 
 
 
@@ -61,4 +59,33 @@ const campgroundValidationFunction= (req,res,next)=>{
 
 
 
-module.exports = { isLoggedIn, isAuthor, campgroundValidationFunction };
+//@ Review Validation Function 
+
+const reviewValidationFunction = (req, res, next) => {
+
+  //@ validating the incoming data using the above defined model
+  const validatedResult = reviewValidationSchema.validate(req.body);
+
+  //@ destructuring the "error" object to handle any server side errors
+  const {
+    error
+  } = validatedResult;
+
+  //@ if any error take the "details"(array of objs) value inside the error object
+  if (error) {
+    //@ using "map" to map the object's msg from details
+    //@ using "join" to join, if there are more than 1 msg
+    const msg = error.details.map((err) => err.message).join(",");
+    throw new ExpressError(msg, 400);
+  }
+  next();
+};
+
+
+
+module.exports = {
+  isLoggedIn,
+  isAuthor,
+  campgroundValidationFunction,
+  reviewValidationFunction
+};
