@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
+const User=require('./user');
 
 const Schema=mongoose.Schema;
 
@@ -23,6 +24,11 @@ const campgroundSchema=new Schema({
     image:{
         type:String,
         required:true
+    },
+    // This is for showing that the particular user created the campground 
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
     },
     reviews:[
         {

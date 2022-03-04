@@ -37,6 +37,7 @@ const dataBase = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 1000);
         const campground = new Campground({
+            author:'6220da794773d1e9f3099202',
           title:
             descriptors[Math.floor(Math.random() * descriptors.length)] +
             " " +

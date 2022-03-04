@@ -11,38 +11,47 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= showCampGround.location %></li>
                 <li class="list-group-item">$ <%= showCampGround.price %>/night</li>
+                <li class="list-group-item">Posted By <%= showCampGround.author.username %></li>
             </ul>
+            <% if(currentUser && showCampGround.author._id.equals(currentUser._id)) {%> 
             <div class="card-body">
                 <a href="/campground/editcampground/<%=showCampGround._id%>/edit" class="card-link btn btn-info">Edit</a>
                 <form action="/campground/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post" class="d-inline">
                     <button class="btn btn-danger ms-2">Delete</button>
                 </form>
             </div>
+            <% } %> 
         </div>
 
     </div>
-    <div class="col-6">
-        <div class="card p-4 my-5" style="width: 25rem;">
-            <h4 class="display-6">Leave a Review</h2>
-            <form action="/review/showcampground/<%=showCampGround._id%>/review" method="post" novalidate class="needs-validation">
-                <label for="rating" class="form-label">Rate from 1 to 5</label>
-                <input type="range" class="form-range" name="rating" min="0" max="5" step="1" id="rating">
-    
-                <label for="body" class="form-label">Feedback</label>
-                <textarea name="body" class="form-control " id="body" cols="6" rows="2" required></textarea>
-                <div class="invalid-feedback ">Please type a comment.</div>
-                <button type="submit" class="btn btn-success mt-3">Submit</button>
-            </form>
-        </div>
+    <% if (currentUser) { %>
+     
+        <div class="col-6">
+            <div class="card p-4 my-5" style="width: 25rem;">
+                <h4 class="display-6">Leave a Review</h2>
+                <form action="/review/showcampground/<%=showCampGround._id%>/review" method="post" novalidate class="needs-validation">
+                    <label for="rating" class="form-label">Rate from 1 to 5</label>
+                    <input type="range" class="form-range" name="rating" min="0" max="5" step="1" id="rating">
+        
+                    <label for="body" class="form-label">Feedback</label>
+                    <textarea name="body" class="form-control " id="body" cols="6" rows="2" required></textarea>
+                    <div class="invalid-feedback ">Please type a comment.</div>
+                    <button type="submit" class="btn btn-success mt-3">Submit</button>
+                </form>
+            </div>
+    <% } %>
 
         <h4 class="display-6">Reviews</h4>
         <% for (let review of showCampGround.reviews) {%>
             <div class="card p-3 mb-3">
                 <h5 class="card-title"><%= review.rating%></h5>
                 <p class="card-text"><%=review.body%></p>
+                <small class="text-muted"><%=review.author.username%></small>
+                <% if(currentUser && currentUser.equals(review.author._id)){ %>
                 <form action="/review/showcamground/<%= showCampGround._id %>/review/<%= review._id %>?_method=DELETE " method="post">
                     <button type="submit"class="btn btn-sm btn-danger">Delete</button>
                 </form>
+                <% } %> 
             </div>
         <% } %>  
     </div>
