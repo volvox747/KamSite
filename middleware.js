@@ -1,6 +1,12 @@
 //@ Importing Campground Model
 const Campground = require("./model/campground");
 
+//@ Importing campgroundValidationSchema to validate the campground data or server side validation
+const {
+    campgroundValidationSchema
+} = require("../schemas");
+
+const ExpressError = require("../utils/ExpressError");
 
 
 
@@ -17,6 +23,8 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
+
+
 //* To check if someone access the edit,delete route through url
 const isAuthor = async (req, res, next) => {
   const { id } = req.params;
@@ -29,4 +37,28 @@ const isAuthor = async (req, res, next) => {
 };
 
 
-module.exports={isLoggedIn,isAuthor};
+
+
+//@ CampGround Validation Function 
+
+const campgroundValidationFunction= (req,res,next)=>{
+  //@ validating the incoming data using the above defined model
+  const validatedResult = campgroundValidationSchema.validate(req.body);
+
+  //@ destructuring the "error" object to handle any server side errors
+  const { error } = validatedResult;
+
+  //@ if any error take the "details"(array of objs) value inside the error object
+  if (error) 
+  {
+    //@ using "map" to map the object's msg from details
+    //@ using "join" to join, if there are more than 1 msg
+    const msg = error.details.map((err) => err.message).join(",");
+    throw new ExpressError(msg, 400);
+  }
+  next();
+}
+
+
+
+module.exports = { isLoggedIn, isAuthor, campgroundValidationFunction };
