@@ -1,4 +1,8 @@
 
+//@ Importing Campground Model
+const Campground = require("../model/campground");
+
+
 const showNewCampGround = (req, res) => {
 res.render("newCampground");
 }

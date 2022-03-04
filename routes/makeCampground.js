@@ -5,8 +5,7 @@ const route = express.Router();
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class
 const catchAsync = require("../utils/catchAsyncError");
 
-//@ Importing Campground Model
-const Campground = require("../model/campground");
+
 
 //@ Importing isLoggedIn middleware
 const {
