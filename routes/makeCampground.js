@@ -16,61 +16,35 @@ const {
 } = require("../middleware");
 
 
+//@ Importing Controllers having body of camground routes
+const campground = require('../controllers/campground');
+
 //$ CREATE
+
+
 
 route.get(
     "/newcampground",
     isLoggedIn,
-    catchAsync((req, res) => {
-        res.render("newCampground");
-    })
+    catchAsync(campground.showNewCampGround)
 );
 
 //@ validationFunction middleware is used so that server side validation is done before saving to the database
 route.post(
     "/newcampground/create",
     campgroundValidationFunction,
-    catchAsync(async (req, res) => {
-        const newCampGround = new Campground({
-            title: req.body.title,
-            location: req.body.location,
-            price: req.body.price,
-            image: req.body.image,
-            description: req.body.description,
-        });
-        let ans = req.user._id.toString(); //req.user._id will be in new ObjectId('5345363c453453') format which cannot be inserted into mongoDB
-        newCampGround.author = ans; //$ this registers the id of the user which is created on registering the website
-        await newCampGround.save();
-        req.flash("success", "Successfully created a new campground!!");
-        res.redirect(`/campground/show/${newCampGround._id}`);
-    })
+    catchAsync(campground.postNewCampGround)
 );
 
 //$ READ
 route.get(
     "/find",
-    catchAsync(async (req, res) => {
-        const campgrounds = await Campground.find({});
-        res.render("home", {
-            campgrounds,
-        });
-    })
+    catchAsync(campground.index)
 );
 
 route.get(
     "/show/:id",
-    catchAsync(async (req, res) => {
-        const {
-            id
-        } = req.params;
-        const showCampGround = await Campground.findById(id)
-            .populate({path:'reviews',populate:{path:'author',model:'User'}}) //this populates the reviews and thier correspondend users
-            .populate("author");// this populates the campground's author/user
-        console.log(showCampGround);
-            res.render("showCampground", {
-            showCampGround,
-        });
-    })
+    catchAsync(campground.showCampGround)
 );
 
 //$ UPDATE
@@ -79,33 +53,14 @@ route.get(
     "/editcampground/:id/edit",
     isLoggedIn,
     isAuthor,
-    catchAsync(async (req, res) => {
-        const {
-            id
-        } = req.params;
-        const editCampGround = await Campground.findById(id);
-        res.render("editCampground", {
-            editCampGround,
-        });
-    })
+    catchAsync(campground.getUpdateCampGround)
 );
 
 //@ validationFunction middleware is used so that server side validation is done before saving to the database
 route.put(
     "/editcampground/:id",
     campgroundValidationFunction,
-    catchAsync(async (req, res) => {
-        const {id}=req.params;
-        await Campground.findByIdAndUpdate(id, {
-            title: req.body.title,
-            location: req.body.location,
-            price: req.body.price,
-            image: req.body.image,
-            description: req.body.description,
-        });
-        req.flash("success", "Successfully edited the existing campground");
-        res.redirect(`/campground/show/${id}`);
-    })
+    catchAsync(campground.updateCampGround)
 );
 
 //$ DELETE
@@ -114,14 +69,7 @@ route.delete(
     "/editcampground/:id",
     isLoggedIn,
     isAuthor,
-    catchAsync(async (req, res) => {
-        const {
-            id
-        } = req.params;
-        await Campground.findByIdAndDelete(id);
-        req.flash("error", "Deleted a Campground");
-        res.redirect("/campground/find");
-    })
+    catchAsync(campground.deleteCampGround)
 );
 
 module.exports = route;
