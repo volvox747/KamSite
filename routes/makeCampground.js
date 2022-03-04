@@ -15,7 +15,7 @@ const Campground = require('../model/campground');
  
 
 //@ Importing isLoggedIn middleware
-const {isLoggedIn}=require('../middleware'); 
+const {isLoggedIn,isAuthor}=require('../middleware'); 
 
 
 
@@ -92,7 +92,7 @@ route.get('/show/:id', catchAsync(async (req, res) => {
 
 //$ UPDATE 
 
-route.get('/editcampground/:id/edit',isLoggedIn, catchAsync(async (req, res) => {
+route.get('/editcampground/:id/edit',isLoggedIn, isAuthor, catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
@@ -104,9 +104,15 @@ route.get('/editcampground/:id/edit',isLoggedIn, catchAsync(async (req, res) => 
 
 //@ validationFunction middleware is used so that server side validation is done before saving to the database 
 route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async (req, res) => {
-    const {
-        id
-    } = req.params;
+    // const {
+    //     id
+    // } = req.params;
+    // const campground=await Campground.findById(id);
+    // if(!campground.author.equals(req.user._id))
+    // {
+    //     req.flash('error',"You don't have permission to update");
+    //     return res.redirect(`/campground/show/${id}`);
+    // }
     await Campground.findByIdAndUpdate(
         id, {
         title: req.body.title,
@@ -123,7 +129,7 @@ route.put('/editcampground/:id', campgroundValidationFunction, catchAsync(async 
 
 //$ DELETE
 
-route.delete('/editcampground/:id',isLoggedIn, catchAsync(async (req, res) => {
+route.delete('/editcampground/:id',isLoggedIn,isAuthor, catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
