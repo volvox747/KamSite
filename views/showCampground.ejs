@@ -13,12 +13,14 @@
                 <li class="list-group-item">$ <%= showCampGround.price %>/night</li>
                 <li class="list-group-item">Posted By <%= showCampGround.author.username %></li>
             </ul>
+            <% if(showCampGround.author._id.equals(currentUser._id)) {%> 
             <div class="card-body">
                 <a href="/campground/editcampground/<%=showCampGround._id%>/edit" class="card-link btn btn-info">Edit</a>
                 <form action="/campground/editcampground/<%= showCampGround._id %>?_method=DELETE " method="post" class="d-inline">
                     <button class="btn btn-danger ms-2">Delete</button>
                 </form>
             </div>
+            <% } %> 
         </div>
 
     </div>
