@@ -95,6 +95,7 @@ route.put(
     "/editcampground/:id",
     campgroundValidationFunction,
     catchAsync(async (req, res) => {
+        const {id}=req.params;
         await Campground.findByIdAndUpdate(id, {
             title: req.body.title,
             location: req.body.location,
