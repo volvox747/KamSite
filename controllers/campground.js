@@ -69,13 +69,18 @@ const updateCampGround = async (req, res) => {
     const {
         id
     } = req.params;
-    await Campground.findByIdAndUpdate(id, {
+    const updateCampGround=await Campground.findByIdAndUpdate(id, {
         title: req.body.title,
         location: req.body.location,      //^ find the campground by id from the params
         price: req.body.price,            //^ updates the data given by the user
-        image: req.body.image,
         description: req.body.description,
     });
+    const imgs = req.files.map(file => ({
+            url: file.path,
+            filename: file.filename
+        })) //^ stores the file url and filename of uploaded files
+    updateCampGround.images.push(...imgs)//^spreading the imgs array and pushing onto the imgs column
+    await updateCampGround.save()
     req.flash("success", "Successfully edited the existing campground");
     res.redirect(`/campground/show/${id}`);
     
