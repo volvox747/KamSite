@@ -21,10 +21,12 @@ const campgroundSchema=new Schema({
         type:String,
         required:true
     },
-    image:{
-        type:String,
-        required:true
-    },
+    images:[
+    {
+        url:String,
+        filename:String
+    }
+    ],
     // This is for showing that the particular user created the campground 
     author:{
         type:mongoose.Schema.Types.ObjectId,

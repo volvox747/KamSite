@@ -4,14 +4,14 @@
     <div class="row">
         <div class="col-6 offset-3">
             <form action="/campground/editcampground/<%= editCampGround._id %>?_method=PUT" method="post" novalidate
-                class="needs-validation">
+                class="needs-validation" enctype="multipart/form-data">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" value="<%= editCampGround.title %>" id="title" class="form-control mb-3"
                     required />
 
-                <label for="imageurl" class="form-label">Image URL</label>
-                <input type="url" name="image" value="<%= editCampGround.image %>" id="imageurl"
-                    class="form-control mb-3" required />
+                <label for="imageurl" class="form-label">Add Image/Images</label>
+                <input type="file" name="image" value="<%= editCampGround.image %>" id="imageurl"
+                    class="form-control mb-3" required multiple/>
 
                 <label for="location" class="form-label">Location</label>
                 <input type="text" name="location" value="<%= editCampGround.location %>" id="location"

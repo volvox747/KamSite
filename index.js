@@ -1,3 +1,10 @@
+
+if(process.env.NODE_ENV!=='production') //@ production stage occurs when we deploy the app
+{
+  require('dotenv').config();
+}
+
+
 //@ Importing "Express" and assigning top level 'express() class' to 'app' variable 
 const express = require("express");
 const app = express();
