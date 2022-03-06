@@ -44,9 +44,17 @@ const dataBase = async () => {
             places[Math.floor(Math.random() * places.length)],
           location: `${cities[random1000].city}, ${cities[random1000].state}`,
           price, //& which means price:price(i.e, pairs have same name)
-          image: "https://source.unsplash.com/random/700x700/?in-the-woods",
           description:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta laudantium temporibus dolorem rem repudiandae itaque fugiat consectetur qui. Dicta praesentium sapiente mollitia expedita quo? Libero pariatur error eaque eos amet!",
+          images: [{
+                  url: 'https://res.cloudinary.com/kamsite/image/upload/v1646590083/Kamsite/nam4sdvglygf65v9iryh.jpg',
+                  filename: 'Kamsite/ofjkvxwz2wa79ii9d4gd',
+              },
+              {
+                  url: 'https://res.cloudinary.com/kamsite/image/upload/v1646592159/Kamsite/ht0ycz4gysukrwgsheuc.jpg',
+                  filename: 'Kamsite/ht0ycz4gysukrwgsheuc',
+              }
+          ]
         });
 
         await campground.save();
