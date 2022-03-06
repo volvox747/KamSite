@@ -66,6 +66,7 @@ route.get(
 //@ validationFunction middleware is used so that server side validation is done before saving to the database
 route.put(
     "/editcampground/:id",
+    upload.array('image'),
     campgroundValidationFunction,
     catchAsync(campground.updateCampGround)
 );
