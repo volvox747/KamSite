@@ -11,8 +11,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    folder:'Kamsite',
-    allowedFormats:['jpeg','png','jpg']
+    params:{
+        folder:'Kamsite',
+        allowedFormats:['jpeg','png','jpg']
+    }
 });
 
 
