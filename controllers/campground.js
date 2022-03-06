@@ -16,7 +16,7 @@ const postNewCampGround = async (req, res) =>
         title: req.body.title,
         location: req.body.location,
         price: req.body.price,
-        image: req.body.image,
+        images: req.files.map(file=>({url:file.url,filename:file.filename})), //^ stores the file url and filename of uploaded files
         description: req.body.description,
     });
     //^ adds the user who created the campground 
