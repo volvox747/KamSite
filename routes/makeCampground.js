@@ -1,6 +1,13 @@
 const express = require("express");
 const route = express.Router();
 
+//@ Importing Cloudinary
+const {storage} = require('../cloudinary/index');
+
+
+//@ Imported multer and set image destination to specified folder
+const multer = require('multer');
+const upload = multer({storage:storage});
 
 //@ Importing common Async-Error handling wrapper function to handle async errors and Custom Error class
 const catchAsync = require("../utils/catchAsyncError");
@@ -31,7 +38,8 @@ route.get(
 //@ validationFunction middleware is used so that server side validation is done before saving to the database
 route.post(
     "/newcampground/create",
-    campgroundValidationFunction,
+    upload.array('image'),// why this is kept on top priority is 'multer' first parses the imgs then sends the req.body
+    campgroundValidationFunction, // and this func is dependend on req.body so it is kept second on priority
     catchAsync(campground.postNewCampGround)
 );
 
