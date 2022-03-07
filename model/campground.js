@@ -4,6 +4,15 @@ const User=require('./user');
 
 const Schema=mongoose.Schema;
 
+const imageSchema = new Schema({
+    url: String,
+    filename: String
+})
+//^ why we store image seprately is the stored image must be stored in a cropped formt 
+imageSchema.virtual('thumbnail').get(function (){ // virtual is a property which wont be stored in mongoDB
+    return this.url.replace('/upload', '/upload/c_scale,w_150');
+})
+
 const campgroundSchema=new Schema({
     title:{
         type:String,
@@ -21,12 +30,7 @@ const campgroundSchema=new Schema({
         type:String,
         required:true
     },
-    images:[
-    {
-        url:String,
-        filename:String
-    }
-    ],
+    images:[imageSchema], // stores the url and filename of images stored in image schema database
     // This is for showing that the particular user created the campground 
     author:{
         type:mongoose.Schema.Types.ObjectId,
