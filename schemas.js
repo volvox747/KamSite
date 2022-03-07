@@ -10,8 +10,8 @@ const Joi = require('joi');
     title: Joi.string().required(),
     location: Joi.string().required(),
     price: Joi.string().required().min(0),
-    image: Joi.string().required(),
-    description: Joi.string().required().min(10)
+    description: Joi.string().required().min(10),
+    deleteImages:Joi.array()
   });
 
   //@ validating review form using Joi module
