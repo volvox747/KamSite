@@ -80,7 +80,11 @@ const updateCampGround = async (req, res) => {
             filename: file.filename
         })) //^ stores the file url and filename of uploaded files
     updateCampGround.images.push(...imgs)//^spreading the imgs array and pushing onto the imgs column
-    await updateCampGround.save()
+    await updateCampGround.save();
+    if(req.body.deleteImages.length>1)
+    {
+        await Campground.findByIdAndUpdate(id,{$pull:{images:{filename:{$in:req.body.deleteImages}}}}) //^ it removes the images which match the 'filename' values of 'deleteImages' array from the 'images' Array 
+    }
     req.flash("success", "Successfully edited the existing campground");
     res.redirect(`/campground/show/${id}`);
     

@@ -1,35 +1,44 @@
 <% layout('layout/boilerplate') %>
-    <h1 class="display-5 text-center mb-5">Edit CampGround</h1>
+<h1 class="display-5 text-center mb-5">Edit CampGround</h1>
 
-    <div class="row">
-        <div class="col-6 offset-3">
-            <form action="/campground/editcampground/<%= editCampGround._id %>?_method=PUT" method="post" novalidate
-                class="needs-validation" enctype="multipart/form-data">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" value="<%= editCampGround.title %>" id="title" class="form-control mb-3"
-                    required />
+<div class="row">
+    <div class="col-6 offset-3">
+        <form action="/campground/editcampground/<%= editCampGround._id %>?_method=PUT" method="post" novalidate
+            class="needs-validation" enctype="multipart/form-data">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" value="<%= editCampGround.title %>" id="title" class="form-control mb-3"
+                required />
 
-                <label for="imageurl" class="form-label">Add Image/Images</label>
-                <input type="file" name="image" value="<%= editCampGround.image %>" id="imageurl"
-                    class="form-control mb-3" required multiple/>
-
+                
+                
                 <label for="location" class="form-label">Location</label>
                 <input type="text" name="location" value="<%= editCampGround.location %>" id="location"
-                    class="form-control mb-3" required />
-
+                class="form-control mb-3" required />
+                
                 <label for="price" class="form-label">CampGround Price</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="price-label">$</span>
-                    <input type="text" class="form-control" name="price" id="price" value="<%= editCampGround.price %>" required />
+                    <input type="text" class="form-control" name="price" id="price" value="<%= editCampGround.price %>"
+                    required />
                 </div>
-
+                
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" id="description" class="form-control mb-3" cols="30" rows="3" required>
-<%= editCampGround.description %></textarea>
-
-                <button type="submit" class="btn btn-success mt-3">
+                    <%= editCampGround.description %></textarea>
+                    
+                <label for="imageurl" class="form-label">Add Image/Images</label>
+                <input type="file" name="image" id="imageurl" class="form-control mb-3"  multiple />
+                <% for( let i = 0; i < editCampGround.images.length; i++ ) { %>
+                    <img src="<%= editCampGround.images[i].thumbnail %>" class="img-thumbnail d-inline">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="<%= editCampGround.images[i].filename %>" name="deleteImages" id="image-<%= i %>" >
+                        <label class="form-check-label" for="image-<%= i %>">Delete</label>
+                    </div>
+                <% } %>
+                    
+                    <button type="submit" class="btn btn-success mt-3">
                     Edit CampGround
                 </button>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
