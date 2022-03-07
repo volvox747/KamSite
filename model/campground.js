@@ -18,6 +18,17 @@ const campgroundSchema=new Schema({
         type:String,
         required:true
     },
+    geometry:{ // this is how we store GeoJSON in campground
+        type:{  //geoJSOn will be in {type:'Point',coordinates:[76.876,10.4545]} format 
+            type:String, 
+            enum:['Point'],   // this is done inorder to store the type:Point
+            required:true    // this means that the type should only be of 'Point' string
+        },
+        coordinates:{
+            type:[Number], // stores arr of nos
+            required:true
+        }
+    },
     price:{
         type:Number,
         required:true
