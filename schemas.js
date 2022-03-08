@@ -11,7 +11,7 @@ const Joi = require('joi');
     location: Joi.string().required(),
     price: Joi.string().required().min(0),
     description: Joi.string().required().min(10),
-    deleteImages:Joi.array()
+    deleteImages: Joi.array().single()
   });
 
   //@ validating review form using Joi module
