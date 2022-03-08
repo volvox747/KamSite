@@ -2,6 +2,11 @@
 //@ Importing Campground Model
 const Campground = require("../model/campground");
 
+//@ Importing Cloudinary
+const {
+    cloudinary
+} = require("../cloudinary");
+
 const mapBoxToken=process.env.MAPBOX_TOKEN;
 
 //@ Importing Geocoding mapbox services 
