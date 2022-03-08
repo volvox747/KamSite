@@ -47,8 +47,9 @@ const postNewCampGround = async (req, res) =>
 
 const index = async (req, res) => {
     const campgrounds = await Campground.find({}); // returns all the campgrounds from the database
+    const defaultUrl = "https://images.unsplash.com/photo-1518602164578-cd0074062767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
     res.render("home", {
-        campgrounds,
+        campgrounds,defaultUrl
     });
 }
 

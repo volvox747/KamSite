@@ -5,7 +5,11 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-4">
+                <% if (campgrounds[i].images.length>0) { %> 
                 <img src="<%= campgrounds[i].images[0].url %>" class="img-fluid rounded-start" alt="...">
+                <% } else {%>
+                    <img src="<%= defaultUrl %> " class="img-fluid rounded-start" alt="...">
+                <% } %> 
             </div>
             <div class="col-md-8">
                 <div class="card-body">
