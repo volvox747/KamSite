@@ -40,7 +40,6 @@ const postNewCampGround = async (req, res) =>
     let ans = req.user._id.toString(); //^ req.user._id will be in new ObjectId('5345363c453453') format which cannot be inserted into mongoDB
     newCampGround.author = ans; //^ this registers the id of the user which is created on registering the website
     await newCampGround.save(); //^ saves the data into camground collection 
-    console.log(newCampGround);
     req.flash("success", "Successfully created a new campground!!"); //^ displays a success msg after creating a campground
     res.redirect(`/campground/show/${newCampGround._id}`); //^ redirects the control to showcamground page
 }
@@ -98,7 +97,6 @@ const updateCampGround = async (req, res) => {
         price: req.body.price,            //^ updates the data given by the user
         description: req.body.description,
     });
-    console.log(geoData.body.features[0].geometry);
     updateCampGround.geometry = geoData.body.features[0].geometry
     const imgs = req.files.map(file => ({
             url: file.path,
@@ -106,7 +104,6 @@ const updateCampGround = async (req, res) => {
         })) //^ stores the file url and filename of uploaded files
     updateCampGround.images.push(...imgs)//^spreading the imgs array and pushing onto the imgs column
     await updateCampGround.save();
-    console.log(req.body.deleteImages);
     if(req.body.deleteImages) // the reason why we dont type deleteImages.length is length wont be defined
     {
         for (let filename of req.body.deleteImages) {
