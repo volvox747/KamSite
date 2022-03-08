@@ -79,6 +79,11 @@ const getUpdateCampGround = async (req, res) => {
 }
 
 const updateCampGround = async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.location, // this takes the location string and gives the geocoding of it
+        limit: 1
+    }).send();
+
     const {
         id
     } = req.params;
@@ -88,16 +93,23 @@ const updateCampGround = async (req, res) => {
         price: req.body.price,            //^ updates the data given by the user
         description: req.body.description,
     });
+    console.log(geoData.body.features[0].geometry);
+    updateCampGround.geometry = geoData.body.features[0].geometry
     const imgs = req.files.map(file => ({
             url: file.path,
             filename: file.filename
         })) //^ stores the file url and filename of uploaded files
     updateCampGround.images.push(...imgs)//^spreading the imgs array and pushing onto the imgs column
     await updateCampGround.save();
-    if(req.body.deleteImages.length>1)
+    console.log(req.body.deleteImages);
+    if(req.body.deleteImages) // the reason why we dont type deleteImages.length is length wont be defined
     {
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
         await Campground.findByIdAndUpdate(id,{$pull:{images:{filename:{$in:req.body.deleteImages}}}}) //^ it removes the images which match the 'filename' values of 'deleteImages' array from the 'images' Array 
     }
+    console.log(updateCampGround);
     req.flash("success", "Successfully edited the existing campground");
     res.redirect(`/campground/show/${id}`);
     
