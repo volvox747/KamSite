@@ -55,6 +55,10 @@ const campgroundSchema=new Schema({
     ]
 });
 
+campgroundSchema.virtual('properties.popUp').get(function () { // virtual is a property which wont be stored in mongoDB
+    return 'Hi I am Benson Thomas.'
+})
+
 campgroundSchema.post('findOneAndDelete',async (campground)=>{
     if(campground.reviews.length!=0)
     {
