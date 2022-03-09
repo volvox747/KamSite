@@ -59,7 +59,7 @@ const campgroundSchema=new Schema({
 
 // why we chose "properties.popup" as virtual is the clusterMap's markerUp is displayed using properties object in the geoMap
 campgroundSchema.virtual('properties.popUp').get(function () { // virtual is a property which wont be stored in mongoDB
-    return 'Hi I am Benson Thomas.'
+    return `<p><strong><a href="/campground/show/${this._id}">${this.title}</a></strong></p>`
 })
 
 campgroundSchema.post('findOneAndDelete',async (campground)=>{
