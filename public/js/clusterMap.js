@@ -3,7 +3,7 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v10',
     center: [-103.5917, 40.6699],
-    zoom: 3
+    zoom: 3.3
 });
 
 map.on('load', () => {
@@ -35,18 +35,22 @@ map.on('load', () => {
                 'step',
                 ['get', 'point_count'],
                 '#51bbd6',
+                20,
+                '#f48c06',
                 100,
                 '#f1f075',
-                750,
-                '#f28cb1'
+                150,
+                '#f26a8d'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
+                10,
+                20,
                 20,
                 100,
                 30,
-                750,
+                150,
                 40
             ]
         }
