@@ -108,7 +108,11 @@ const review=require('./routes/makeReview');
 app.use('/review',review);
 
 
+//$ LANDING PAGE
 
+app.get('/',(req,res)=>{
+  res.render('index')
+})
 
 
 
