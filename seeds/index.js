@@ -54,7 +54,11 @@ const dataBase = async () => {
                   url: 'https://res.cloudinary.com/kamsite/image/upload/v1646592159/Kamsite/ht0ycz4gysukrwgsheuc.jpg',
                   filename: 'Kamsite/ht0ycz4gysukrwgsheuc',
               }
-          ]
+          ],
+          geometry:{
+              type:'Point',
+              coordinates:[cities[random1000].longitude,cities[random1000].latitude]
+          }
         });
 
         await campground.save();

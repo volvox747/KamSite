@@ -2,6 +2,17 @@
 //@ Importing Campground Model
 const Campground = require("../model/campground");
 
+//@ Importing Cloudinary
+const {
+    cloudinary
+} = require("../cloudinary");
+
+const mapBoxToken=process.env.MAPBOX_TOKEN;
+
+//@ Importing Geocoding mapbox services 
+const mbxGeoCoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocoder=mbxGeoCoding({accessToken:mapBoxToken}) //contains frwd and reverse geocoding
+
 
 const showNewCampGround = (req, res) => {
 res.render("newCampground");
@@ -11,6 +22,11 @@ res.render("newCampground");
 
 const postNewCampGround = async (req, res) => 
 {
+    const geoData=await geocoder.forwardGeocode({
+        query:req.body.location,// this takes the location string and gives the geocoding of it
+        limit:1
+    }).send();
+
     //^ adds new campground data entered by user into the campground collection in kam-site database 
     const newCampGround = new Campground({
         title: req.body.title,
@@ -18,6 +34,7 @@ const postNewCampGround = async (req, res) =>
         price: req.body.price,
         images: req.files.map(file=>({url:file.path,filename:file.filename})), //^ stores the file url and filename of uploaded files
         description: req.body.description,
+        geometry:geoData.body.features[0].geometry
     });
     //^ adds the user who created the campground 
     let ans = req.user._id.toString(); //^ req.user._id will be in new ObjectId('5345363c453453') format which cannot be inserted into mongoDB
@@ -30,8 +47,9 @@ const postNewCampGround = async (req, res) =>
 
 const index = async (req, res) => {
     const campgrounds = await Campground.find({}); // returns all the campgrounds from the database
+    const defaultUrl = "https://images.unsplash.com/photo-1518602164578-cd0074062767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
     res.render("home", {
-        campgrounds,
+        campgrounds,defaultUrl
     });
 }
 
@@ -66,6 +84,11 @@ const getUpdateCampGround = async (req, res) => {
 }
 
 const updateCampGround = async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.location, // this takes the location string and gives the geocoding of it
+        limit: 1
+    }).send();
+
     const {
         id
     } = req.params;
@@ -75,16 +98,21 @@ const updateCampGround = async (req, res) => {
         price: req.body.price,            //^ updates the data given by the user
         description: req.body.description,
     });
+    updateCampGround.geometry = geoData.body.features[0].geometry
     const imgs = req.files.map(file => ({
             url: file.path,
             filename: file.filename
         })) //^ stores the file url and filename of uploaded files
     updateCampGround.images.push(...imgs)//^spreading the imgs array and pushing onto the imgs column
     await updateCampGround.save();
-    if(req.body.deleteImages.length>1)
+    if(req.body.deleteImages) // the reason why we dont type deleteImages.length is length wont be defined
     {
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
         await Campground.findByIdAndUpdate(id,{$pull:{images:{filename:{$in:req.body.deleteImages}}}}) //^ it removes the images which match the 'filename' values of 'deleteImages' array from the 'images' Array 
     }
+    console.log(updateCampGround);
     req.flash("success", "Successfully edited the existing campground");
     res.redirect(`/campground/show/${id}`);
     

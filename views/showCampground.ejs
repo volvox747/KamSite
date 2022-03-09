@@ -1,6 +1,14 @@
 <% layout('layout/boilerplate') %>
 <link rel="stylesheet" href="/css/starRating.css">
 
+<!--$ To access the process.env.MAPBOX_TOKEN on external js file we intialize token to a variable -->
+<script>
+    const mapToken='<%- process.env.MAPBOX_TOKEN %>';
+    const campground=<%-JSON.stringify(showCampGround)%> 
+</script>
+<!--$ MAP -->
+<div id='map' style='width: 400px; height: 300px;'></div>
+
 <div class="row">
     <div class="col-6">
         <div class="card" style="width: 23rem;">
@@ -98,3 +106,6 @@
         <% } %>
     </div>
 </div>
+
+
+<script src="/js/map.js"></script>
