@@ -1,10 +1,10 @@
 <% layout('layout/boilerplate') %>
 <!-- CLUSTER MAP -->
-<div id="map" style="width: 100%; height: 500px;"></div>
+<div id="cluster-map"></div>
 
 <h1 class="display-5 mb-5">All CampGrounds</h1>
 <ul>
-    <% for( let i = 0; i < 50; i++ ) { %>
+    <% for( let i = 0; i < campgrounds.length; i++ ) { %>
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-4">
